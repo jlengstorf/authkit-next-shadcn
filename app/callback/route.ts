@@ -9,8 +9,6 @@ export async function GET(request: Request) {
 	const url = new URL(request.url);
 	const code = url.searchParams.get('code') || '';
 
-	console.log({ url });
-
 	try {
 		const { user } = await workos.users.authenticateWithCode({
 			clientId: process.env.WORKOS_CLIENT_ID || '',
@@ -24,8 +22,11 @@ export async function GET(request: Request) {
 			.sign(getJwtSecretKey());
 
 		// remove the code from the redirect URL
-		url.searchParams.delete('code');
+		url.port = '';
 		url.pathname = '/dashboard';
+		url.searchParams.delete('code');
+
+		console.log({ url });
 
 		const response = NextResponse.redirect(url);
 
