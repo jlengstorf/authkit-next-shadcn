@@ -57,11 +57,11 @@ export default async function DashboardPage() {
 			<div className="hidden flex-col md:flex">
 				<div className="border-b">
 					<div className="flex h-16 items-center px-4">
-						<TeamSwitcher user={user} />
+						{user ? <TeamSwitcher user={user} /> : null}
 						<MainNav className="mx-6" currentRoute="/dashboard" />
 						<div className="ml-auto flex items-center space-x-4">
 							<Search />
-							<UserNav user={user} />
+							{user ? <UserNav user={user} /> : null}
 						</div>
 					</div>
 				</div>
