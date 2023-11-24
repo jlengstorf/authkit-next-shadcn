@@ -26,6 +26,7 @@ export async function GET(request: Request) {
 		url.pathname = '/dashboard';
 		url.searchParams.delete('code');
 
+		console.log('login');
 		console.log({ url });
 
 		const response = NextResponse.redirect(url);
