@@ -1,95 +1,118 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+import { WorkOS } from '@workos-inc/node';
+import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { TeamSwitcher } from '@/components/team-switcher';
+import { MainNav } from '@/components/main-nav';
+import { Search } from '@/components/search';
+import { UserNav } from '@/components/user-nav';
+import { getUser, getAuthUrl } from './auth';
 
-export default function Home() {
-  return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+export default async function Home() {
+	const { isAuthenticated, user } = await getUser();
+	const authKitUrl = getAuthUrl();
 
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore starter templates for Next.js.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
-  )
+	return (
+		<>
+			<div className="flex-col md:flex">
+				<div className="border-b">
+					<div className="flex h-16 items-center px-4">
+						{isAuthenticated ? (
+							<TeamSwitcher user={user} />
+						) : (
+							<Link href={authKitUrl}>
+								<Button>Log In</Button>
+							</Link>
+						)}
+						<MainNav className="mx-6" currentRoute="/" />
+						<div className="ml-auto flex items-center space-x-4">
+							<Search />
+							{isAuthenticated ? <UserNav user={user} /> : null}
+						</div>
+					</div>
+				</div>
+				<section class="flex max-w-[980px] flex-col items-start gap-2 mt-12 mx-auto px-4 pt-8 page-header pb-8">
+					{isAuthenticated ? (
+						<>
+							<h1 class="text-5xl font-bold leading-tight tracking-tighter">
+								So stealthy you can call us Bigfoot
+							</h1>
+							<p class="max-w-[750px] text-xl text-muted-foreground">
+								You’re now part of the stealthiest startup in tech. We’re
+								pre-seed, pre-revenue, and pre-product but{' '}
+								<strong>we know how to get people hyped</strong>.
+							</p>
+							<p class="max-w-[750px] text-xl text-muted-foreground">
+								So <em>don’t tell anyone about us yet</em>.
+							</p>
+							<p class="max-w-[750px] mt-1 text-xl">
+								<Link href="/dashboard">
+									<Button>Go to your dashboard</Button>
+								</Link>
+							</p>
+						</>
+					) : (
+						<>
+							<h1 class="text-5xl font-bold leading-tight tracking-tighter">
+								What will you build?
+							</h1>
+							<p class="max-w-[750px] text-xl text-muted-foreground">
+								This startup is so deep in stealth mode we haven’t even named it
+								yet. But... since you’re here, why don’t you sign up and give us
+								a try?
+							</p>
+							<p class="max-w-[750px] mt-1 text-xl">
+								<Link href={authKitUrl}>
+									<Button>Log in</Button>
+								</Link>
+							</p>
+						</>
+					)}
+				</section>
+			</div>
+			{/*
+		<Container size="3">
+			<Section>
+				<Heading size="9" align="center" mb="5">
+					How did you get here?
+				</Heading>
+				{isAuthenticated ? (
+					<>
+						<Text as="p" size="7" align="center" mb="3">
+							You’re part of the stealthiest startup in tech. We’re pre-seed,
+							pre-revenue, and pre-product but{' '}
+							<Strong>we know how to get people hyped</Strong> — so{' '}
+							<Em>don’t tell anyone about us yet</Em>.
+						</Text>
+						<Text as="p" size="4" align="center">
+							(but also if you do here’s a personalized sharing card showing
+							everyone how cool you are for being here.)
+						</Text>
+						<pre>{JSON.stringify(user, null, 2)}</pre>
+					</>
+				) : (
+					<>
+						<Text as="p" size="7" align="center">
+							This startup is so deep in stealth mode we haven’t even named it
+							yet. But... since you’re here, why don’t you sign up and give us a
+							try?
+						</Text>
+						<Link href={authKitUrl}>Sign Up</Link>
+					</>
+				)}
+			</Section>
+			<Grid columns="2">
+				<Box>
+					<h2>Hi</h2>
+				</Box>
+				<Box>
+					<h2>Hi</h2>
+				</Box>
+				<Box>
+					<h2>Hi</h2>
+				</Box>
+			</Grid>
+		</Container>*/}
+		</>
+	);
 }
