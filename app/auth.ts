@@ -48,7 +48,7 @@ export function getAuthUrl() {
 	return workos.sso.getAuthorizationURL({
 		clientID: process.env.WORKOS_CLIENT_ID || '',
 		provider: 'authkit',
-		redirectURI: 'http://localhost:3000/callback',
+		redirectURI: process.env.WORKOS_REDIRECT_URI!,
 	});
 }
 
