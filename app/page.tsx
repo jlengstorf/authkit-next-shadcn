@@ -17,7 +17,7 @@ export default async function Home() {
 			<div className="flex-col md:flex">
 				<div className="border-b">
 					<div className="flex h-16 items-center px-4">
-						{isAuthenticated ? (
+						{isAuthenticated && user ? (
 							<TeamSwitcher user={user} />
 						) : (
 							<Link href={authKitUrl}>
@@ -27,25 +27,25 @@ export default async function Home() {
 						<MainNav className="mx-6" currentRoute="/" />
 						<div className="ml-auto flex items-center space-x-4">
 							<Search />
-							{isAuthenticated ? <UserNav user={user} /> : null}
+							{isAuthenticated && user ? <UserNav user={user} /> : null}
 						</div>
 					</div>
 				</div>
-				<section class="flex max-w-[980px] flex-col items-start gap-2 mt-12 mx-auto px-4 pt-8 page-header pb-8">
+				<section className="flex max-w-[980px] flex-col items-start gap-2 mt-12 mx-auto px-4 pt-8 page-header pb-8">
 					{isAuthenticated ? (
 						<>
-							<h1 class="text-5xl font-bold leading-tight tracking-tighter">
+							<h1 className="text-5xl font-bold leading-tight tracking-tighter">
 								So stealthy you can call us Bigfoot
 							</h1>
-							<p class="max-w-[750px] text-xl text-muted-foreground">
+							<p className="max-w-[750px] text-xl text-muted-foreground">
 								You’re now part of the stealthiest startup in tech. We’re
 								pre-seed, pre-revenue, and pre-product but{' '}
 								<strong>we know how to get people hyped</strong>.
 							</p>
-							<p class="max-w-[750px] text-xl text-muted-foreground">
+							<p className="max-w-[750px] text-xl text-muted-foreground">
 								So <em>don’t tell anyone about us yet</em>.
 							</p>
-							<p class="max-w-[750px] mt-1 text-xl">
+							<p className="max-w-[750px] mt-1 text-xl">
 								<Link href="/dashboard">
 									<Button>Go to your dashboard</Button>
 								</Link>
@@ -53,15 +53,15 @@ export default async function Home() {
 						</>
 					) : (
 						<>
-							<h1 class="text-5xl font-bold leading-tight tracking-tighter">
+							<h1 className="text-5xl font-bold leading-tight tracking-tighter">
 								What will you build?
 							</h1>
-							<p class="max-w-[750px] text-xl text-muted-foreground">
+							<p className="max-w-[750px] text-xl text-muted-foreground">
 								This startup is so deep in stealth mode we haven’t even named it
 								yet. But... since you’re here, why don’t you sign up and give us
 								a try?
 							</p>
-							<p class="max-w-[750px] mt-1 text-xl">
+							<p className="max-w-[750px] mt-1 text-xl">
 								<Link href={authKitUrl}>
 									<Button>Log in</Button>
 								</Link>
