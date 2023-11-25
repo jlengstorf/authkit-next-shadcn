@@ -1,5 +1,4 @@
 import { cookies } from 'next/headers';
-import { redirect } from 'next/navigation';
 import { jwtVerify } from 'jose';
 import { WorkOS, type User } from '@workos-inc/node';
 
@@ -50,10 +49,4 @@ export function getAuthUrl() {
 		provider: 'authkit',
 		redirectURI: process.env.WORKOS_REDIRECT_URI!,
 	});
-}
-
-// Clear the session and redirect to the home page
-export async function signOut() {
-	cookies().delete('token');
-	redirect('/');
 }

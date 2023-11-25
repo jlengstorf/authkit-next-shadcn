@@ -1,5 +1,3 @@
-import { WorkOS } from '@workos-inc/node';
-import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { TeamSwitcher } from '@/components/team-switcher';
@@ -70,49 +68,6 @@ export default async function Home() {
 					)}
 				</section>
 			</div>
-			{/*
-		<Container size="3">
-			<Section>
-				<Heading size="9" align="center" mb="5">
-					How did you get here?
-				</Heading>
-				{isAuthenticated ? (
-					<>
-						<Text as="p" size="7" align="center" mb="3">
-							You’re part of the stealthiest startup in tech. We’re pre-seed,
-							pre-revenue, and pre-product but{' '}
-							<Strong>we know how to get people hyped</Strong> — so{' '}
-							<Em>don’t tell anyone about us yet</Em>.
-						</Text>
-						<Text as="p" size="4" align="center">
-							(but also if you do here’s a personalized sharing card showing
-							everyone how cool you are for being here.)
-						</Text>
-						<pre>{JSON.stringify(user, null, 2)}</pre>
-					</>
-				) : (
-					<>
-						<Text as="p" size="7" align="center">
-							This startup is so deep in stealth mode we haven’t even named it
-							yet. But... since you’re here, why don’t you sign up and give us a
-							try?
-						</Text>
-						<Link href={authKitUrl}>Sign Up</Link>
-					</>
-				)}
-			</Section>
-			<Grid columns="2">
-				<Box>
-					<h2>Hi</h2>
-				</Box>
-				<Box>
-					<h2>Hi</h2>
-				</Box>
-				<Box>
-					<h2>Hi</h2>
-				</Box>
-			</Grid>
-		</Container>*/}
 		</>
 	);
 }
