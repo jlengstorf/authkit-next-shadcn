@@ -22,9 +22,8 @@ export async function GET(request: Request) {
 			.sign(getJwtSecretKey());
 
 		// remove the code from the redirect URL
-		url.port = ''; // TODO get Netlify team to weigh in on this
 		url.pathname = '/dashboard';
-		url.searchParams.delete('code'); // TODO get Netlify team to weigh in on this
+		url.searchParams.delete('code');
 
 		const response = NextResponse.redirect(url);
 

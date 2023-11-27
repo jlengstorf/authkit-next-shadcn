@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import '@/app/globals.css';
 import { Inter as FontSans } from 'next/font/google';
-
 import { cn } from '@/lib/utils';
+
+import '@/app/globals.css';
 
 export const fontSans = FontSans({
 	subsets: ['latin'],
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 	description: 'So new we haven’t even named it yet!',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
 	children,
 }: {
 	children: React.ReactNode;
@@ -27,7 +27,7 @@ export default function RootLayout({
 					fontSans.variable,
 				)}
 			>
-				{children}
+				<div className="flex-col md:flex">{children}</div>
 			</body>
 		</html>
 	);
